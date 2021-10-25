@@ -8,11 +8,6 @@ const elUsersTemplate = document.querySelector('.users__template').content;
 const elPostsTemplate = document.querySelector('.posts__template').content;
 const elCommentsTemplate = document.querySelector('.comments__template').content;
 
-// Elements Links 
-
-const usersLink = 'https://jsonplaceholder.typicode.com/users';
-const postsLink = 'https://jsonplaceholder.typicode.com/posts';
-const commentsLink = 'https://jsonplaceholder.typicode.com/comments?postId=';
 const geoLink = 'https://www.google.com/maps/place/';
 
 //ARR
@@ -37,13 +32,7 @@ function renderUsers(arr, node) {
       clonedUsersTemplate.querySelector('.user__email').textContent = user.email;
       clonedUsersTemplate.querySelector('.user__website').href = user.website;
       clonedUsersTemplate.querySelector('.user__address').textContent =
-      user.address.street +
-      ' ' +
-      user.address.suite +
-      ' ' +
-      user.address.city +
-      ' ' +
-      user.address.zipcode;
+      user.address.street +' '+user.address.suite +' '+user.address.city +' '+user.address.zipcode;
       clonedUsersTemplate.querySelector('.user__geo').href = geoLink + user.address.geo.lat + ' ' + user.address.geo.lng;
 
       fragmentList.appendChild(clonedUsersTemplate);
@@ -69,7 +58,6 @@ function renderPosts(arr, node) {
    node.appendChild(fragmentList);
 }
 
-
 // RenderComments
 
 function renderComments(arr, node) {
@@ -94,8 +82,8 @@ function renderComments(arr, node) {
 // Async Users
 
 async function getUsers(){
-   const res = await fetch(usersLink);
-   const data = await res.json();
+   const response = await fetch('https://jsonplaceholder.typicode.com/users');
+   const data = await response.json();
 
    users = data;
    renderUsers(users, elUserList);
@@ -104,8 +92,8 @@ async function getUsers(){
 // Async Posts 
 
 async function getPosts() {
-   const res = await fetch(postsLink);
-   const data = await res.json();
+   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+   const data = await response.json();
 
    posts = data;
 }
@@ -113,8 +101,8 @@ async function getPosts() {
 // Async Comments
 
 async function getComments(page) {
-   const res = await fetch(commentsLink + page);
-   const data = await res.json();
+   const response = await fetch("https://jsonplaceholder.typicode.com/comments?postId=" + page);
+   const data = await response.json();
    
    comments = data;
    
